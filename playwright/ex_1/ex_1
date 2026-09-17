@@ -1,0 +1,162 @@
+
+
+# 🎯 Playwright SDET Practice — Exercise #1
+
+**Difficulty:** 🟢 Easy
+**Type:** Realistic Automation Task
+**Goal:** Basic concepts ko combine karke clean Playwright test likhna
+
+### Scenario
+
+Tum ek e-commerce application ko automate kar rahe ho.
+
+Application mein multiple products displayed hain.
+
+Tumhe verify karna hai ki user:
+
+**Search → Product identify → Product details verify → Add to Cart → Cart update verify**
+
+workflow successfully perform kar sakta hai.
+
+---
+
+## 📋 Task
+
+Ek Playwright + Pytest automation test create karo jo following complete workflow automate kare:
+
+1. Application open karo.
+2. Product search box mein **`iPhone 15`** search karo.
+3. Search results mein **iPhone 15** product identify karo.
+4. Verify karo ki **iPhone 15 product visible** hai.
+5. Us product ke andar displayed **price visible** hai.
+6. **iPhone 15 ke product card ke andar hi** `Add to Cart` button click karo.
+7. Verify karo ki cart count **1** ho gaya hai.
+
+---
+
+## 🔧 Requirements / Constraints
+
+* **Playwright + Pytest** use karna hai.
+* Locators ko stable rakhne ki koshish karo.
+* Product ko identify karne ke liye product ke text ko use kar sakte ho.
+* `Add to Cart` button ko **specific iPhone 15 product ke context ke andar** locate karo.
+* Generic page-level `Add to Cart` locator use mat karo agar usse multiple products match ho sakte hain.
+* `nth()` use karne se bacho.
+* `time.sleep()` use **mat** karna.
+* Explicit waits unnecessarily use mat karna.
+* Proper Playwright assertions use karo.
+* Test mein unnecessary implementation details mat ghusao.
+* Is exercise ke liye **POM mandatory nahi hai**. Requirement ke basis par khud decide karo ki POM banana justified hai ya nahi.
+* Code readable aur maintainable hona chahiye.
+
+---
+
+## 🧩 Assumed Product Structure
+
+Product cards conceptually kuch is type ke ho sakte hain:
+
+```html
+<div class="product-card">
+    <h3>iPhone 15</h3>
+    <span class="price">$799</span>
+    <button>Add to Cart</button>
+</div>
+```>
+
+Actual application mein DOM different ho sakta hai. Is structure ko **exact locator solution** mat samajhna; real DOM ke according locator choose karna.
+
+---
+
+## 📁 What you need to submit
+
+Tum apne project mein exercise implement karo.
+
+Submit karte waqt mujhe **sirf ye information** dena:
+
+```text
+Exercise: #1
+
+Project/Folder:
+<folder structure>
+
+Files:
+<file name>
+<file name>
+
+Code:
+<paste your code>
+
+Notes:
+<agar koi design decision ya doubt hai to yahan likho>
+```
+
+Agar multiple files hain, example:
+
+```text
+tests/
+    test_product_search.py
+
+pages/
+    product_page.py
+
+conftest.py
+```
+
+Tum mujhe **exact folder/file structure** bata dena.
+
+### Important
+
+Main tumhare structure ko bhi review karunga.
+
+Sirf test pass ho gaya = **correct** nahi maanunga.
+
+Main check karunga:
+
+### ✅ GOOD
+
+Kya genuinely achha hai.
+
+### ❌ WRONG
+
+Kya technically/design-wise galat hai.
+
+### ⚠️ RISK
+
+Kya abhi chal sakta hai but production mein problem create kar sakta hai.
+
+### 🔧 IMPROVEMENT
+
+Kahan aur kaise improve karna chahiye.
+
+### 🏭 PRODUCTION VERSION
+
+Jahan useful hoga, production-level approach dikhaunga aur explain karunga.
+
+Saath mein main ye bhi track karunga ki **tumhe kis area mein weakness/repeated mistake hai**, taaki next exercise targeted ho — unnecessary exercises nahi.
+
+---
+
+### 🎤 Interview relevance
+
+**🟢 COMMON INTERVIEW**
+
+Is exercise se indirectly ye interview concepts test honge:
+
+* Stable locators
+* Locator chaining
+* Dynamic product identification
+* Assertions
+* Auto-waiting
+* `nth()` avoid karne ka reason
+* Test vs POM responsibility
+
+### 🏭 Production relevance
+
+**🟡 PRACTICAL QA**
+
+Real projects mein product/order/user-specific elements ko correctly scope karna aur generic locators ki wajah se wrong element interact hone se bachna important hai.
+
+---
+
+**Ab tum implementation karo. Main solution nahi dunga.**
+Jab ready ho, apna **folder structure + files + code** submit karo. Phir proper strict review karenge.
