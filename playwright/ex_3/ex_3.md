@@ -1,15 +1,15 @@
-Bilkul bhai. 🔥 **Ye actually better rahega.** Aage se jab tum bolo “MD bana do”, main **direct copy-paste-ready Markdown text** dunga, jab tak tum specifically downloadable `.md` file na bolo.
+😂 Haan bhai, **ab 100% samajh gaya.**
+Tumhe **Exercise #3 jo tumne upar paste ki thi**, usi ka `.md` chahiye — **Word/Python notes wali file ka nahi**.
 
-Aur format **pichhli Python notes wali style** jaisa hi rakhenge — clean, premium, visual, emojis/callouts/code blocks/tables/collapsible sections etc.
+Aur tumhara main point ye hai ki **Markdown code ko outer code block mein nahi daalna**, warna copy karne par nested ``` ki wajah se khichdi ban jaati hai.
 
-Neeche **Exercise #3 ka complete copy-paste-ready `.md`** hai:
+Isliye main ab **direct Markdown content** de raha hoon. Is response ke **is section ko copy karke `.md` file mein paste** kar sakte ho:
 
-````md
 # 🔥 Exercise #3 — API Setup + UI Validation
 
-> **Difficulty:** 🟡 Medium  
-> **Type:** API + UI Automation  
-> **Tools:** Pytest + Playwright + `requests`  
+> **Difficulty:** 🟡 Medium
+> **Type:** API + UI Automation
+> **Tools:** Pytest + Playwright + `requests`
 > **Focus:** API setup, UI validation, test-data strategy, separation of responsibilities
 
 ---
@@ -22,25 +22,23 @@ Tumhe **API ka use test data/setup ke liye** karna hai aur **UI ka use actual us
 
 ### 🔄 Expected Flow
 
-```text
 API
- ↓
+↓
 Create Order
- ↓
+↓
 UI
- ↓
+↓
 Login
- ↓
+↓
 Open Orders
- ↓
+↓
 Find Created Order
- ↓
+↓
 Validate Order Details
-````
 
 ---
 
-# 🏢 Business Scenario
+## 🏢 Business Scenario
 
 E-commerce application mein order manually UI se create karna possible hai.
 
@@ -54,33 +52,13 @@ SDET ke taur par tum decide karte ho:
 
 UI se order create karne mein multiple steps ho sakte hain:
 
-```text
-Login
- ↓
-Product Search
- ↓
-Add Product
- ↓
-Cart
- ↓
-Checkout
- ↓
-Address
- ↓
-Payment
- ↓
-Place Order
-```
+**Login → Product Search → Add Product → Cart → Checkout → Address → Payment → Place Order**
 
 Agar humein sirf **order visibility** test karni hai, toh ye unnecessary UI steps hain.
 
 Instead:
 
-```text
-API → Create required test data
-             ↓
-UI  → Validate actual user-facing behavior
-```
+**API → Create required test data → UI → Validate actual user-facing behavior**
 
 ---
 
@@ -92,18 +70,16 @@ Test ke setup phase mein API request ke through ek new order create karo.
 
 ### 🧪 Test Data
 
-```text
-Customer: Rajit
-Product: iPhone 15
-Quantity: 2
-Price per item: $799
-```
+| Field          | Value       |
+| -------------- | ----------- |
+| Customer       | `Rajit`     |
+| Product        | `iPhone 15` |
+| Quantity       | `2`         |
+| Price per item | `$799`      |
 
 API response se generated:
 
-```text
-order_id
-```
+`order_id`
 
 capture karo.
 
@@ -131,13 +107,11 @@ Orders page par multiple orders ho sakte hain.
 
 Example:
 
-```text
-ORD-998
-ORD-999
-ORD-1000
-ORD-1001
-...
-```
+* `ORD-998`
+* `ORD-999`
+* `ORD-1000`
+* `ORD-1001`
+* ...
 
 API se create kiya hua **dynamic `order_id`** use karke correct order identify karo.
 
@@ -159,33 +133,21 @@ UI par API se created order ke andar verify karo:
 
 ---
 
-# 6️⃣ Test Isolation
+## 6️⃣ Test Isolation
 
 Test ko is assumption par depend nahi karna chahiye ki database mein pehle se koi specific order available hai.
 
-Har test execution mein required order:
+Har test execution mein required order **API se create** hona chahiye.
 
-```text
-API
- ↓
-Create fresh order
- ↓
-Capture order_id
- ↓
-UI validation
-```
+Expected flow:
 
-hona chahiye.
+**API → Create fresh order → Capture `order_id` → UI validation**
 
 ### 🎯 Goal
 
-Test:
-
-```text
 Run #1 → Create Order A → Validate A
 Run #2 → Create Order B → Validate B
 Run #3 → Create Order C → Validate C
-```
 
 Existing database state par depend nahi kare.
 
@@ -193,9 +155,7 @@ Existing database state par depend nahi kare.
 
 # 🌐 Test Application / API
 
-Is exercise ke liye **JSONPlaceholder** ko API backend aur **SauceDemo** ko UI application ki tarah combine mat karna.
-
-❌ Woh real integration nahi hoga.
+Is exercise ke liye **JSONPlaceholder** ko API backend aur **SauceDemo** ko UI application ki tarah combine mat karna — woh real integration nahi hoga.
 
 Instead, is exercise ko apne practice project mein **mock/test API contract** ke against implement karo.
 
@@ -205,9 +165,11 @@ Instead, is exercise ko apne practice project mein **mock/test API contract** ke
 
 ## Create Order
 
-```http
-POST /api/orders
-```
+**HTTP Method:** `POST`
+
+**Endpoint:**
+
+`/api/orders`
 
 ### 📤 Request
 
@@ -232,11 +194,7 @@ POST /api/orders
 }
 ```
 
-> ⚠️ **Important**
->
-> Ye API contract exercise ke liye provided contract hai.
->
-> Agar tumhare local practice application/API mein endpoint ya response structure different hai, apne actual environment ke according adapt karna.
+> ⚠️ **Important:** Ye API contract exercise ke liye provided contract hai. Agar tumhare local practice application/API mein endpoint ya response structure different hai, apne actual environment ke according adapt karna.
 
 ---
 
@@ -256,13 +214,11 @@ Orders page ka relevant structure:
 
 Multiple order cards ho sakte hain:
 
-```text
-ORD-998
-ORD-999
-ORD-1000
-ORD-1001
-...
-```
+* `ORD-998`
+* `ORD-999`
+* `ORD-1000`
+* `ORD-1001`
+* ...
 
 Tumhe **API se returned order ID** ke basis par correct order identify karna hai.
 
@@ -278,207 +234,120 @@ Tumhe **API se returned order ID** ke basis par correct order identify karna hai
 
 ### 🚫 Rules
 
-* Hard-coded order ID use mat karo.
-* Existing database/order data par depend mat karo.
-* `time.sleep()` use mat karo.
-* `nth()` avoid karo.
-* Stable/scoped locators prefer karo.
-* API response se generated `order_id` capture karo.
-* UI validation API response ke data ke against karo.
-* API interaction aur UI interaction ki responsibilities clearly separate rakho.
-* Test ko deterministic rakhne ki koshish karo.
+* ❌ Hard-coded order ID use mat karo.
+* ❌ Existing database/order data par depend mat karo.
+* ❌ `time.sleep()` use mat karo.
+* ❌ `nth()` use mat karo just because convenient hai.
+* ✅ Stable/scoped locators prefer karo.
+* ✅ API response se generated `order_id` capture karo.
+* ✅ UI validation API response ke data ke against karo.
+* ✅ API interaction aur UI interaction ki responsibilities clearly separate rakho.
+* ✅ Test ko deterministic rakhne ki koshish karo.
 
 ---
 
 # 🏗️ Architecture Decision
 
-Is exercise mein tumhe **khud architecture decide karna hai.**
-
-Main tumhe koi fixed structure nahi de raha.
+Is exercise mein tumhe **khud architecture decide karna hai**.
 
 Tum decide karo:
 
-### ❓ API Call
+### 🌐 API Call
 
-```text
-Test ke andar direct request?
-```
+* API call test ke andar directly?
+* Ya separate API client?
 
-ya
+### 🧪 Test Data
 
-```text
-Separate API Client?
-```
+* Dictionary?
+* Dataclass?
+* Fixture?
+* Kuch aur?
 
----
+### ⚙️ Setup
 
-### ❓ Test Data
+* Fixture?
+* Test method?
+* Separate helper?
 
-```text
-Dictionary?
-```
+### 🎭 UI
 
-ya
+* Direct Playwright code?
+* Page Object Model?
 
-```text
-Dataclass?
-```
-
-ya
-
-```text
-Fixture?
-```
-
----
-
-### ❓ Setup
-
-```text
-Fixture?
-```
-
-ya
-
-```text
-Test method?
-```
-
----
-
-### ❓ UI
-
-```text
-Direct Playwright code?
-```
-
-ya
-
-```text
-Page Object Model?
-```
-
----
-
-### ❓ Cleanup
+### 🧹 Cleanup
 
 Socho:
 
-```text
-Order create hua
-       ↓
-Test complete
-       ↓
-Order ka kya hoga?
-```
+**Create Order → Test Complete → Order ka kya hoga?**
 
 Kya cleanup required hai?
 
 Agar haan:
 
-```text
-POST → Create
- ↓
-UI → Validate
- ↓
-DELETE → Cleanup
-```
+**POST → Create → UI Validate → DELETE → Cleanup**
 
 Agar cleanup nahi karoge, toh reason justify karna.
 
----
-
-# 🧠 Important Engineering Principle
-
-> **Kisi particular architecture ko blindly follow mat karo.**
+> 🧠 **Kisi particular architecture ko blindly follow mat karo.**
 
 Exercise ka important part hai:
 
-> ## 🎯 Requirement dekh kar appropriate abstraction choose karna.
-
-Main review mein sirf ye nahi dekhunga ki:
-
-```text
-❌ Test pass ho raha hai ya nahi
-```
-
-Main ye bhi dekhunga:
-
-```text
-✅ Why did you choose this architecture?
-✅ Is the abstraction useful?
-✅ Is anything unnecessarily complex?
-```
+> **Requirement dekh kar appropriate abstraction choose karna.**
 
 ---
 
 # 🚫 Don't Do
 
-```text
-❌ Hard-code ORD-1001
-
-❌ UI se order create karke
-   phir UI se same order validate karna
-
-❌ Existing order assume karna
-
-❌ API response ignore karna
-
-❌ API setup aur UI validation ko
-   unnecessarily mix karna
-
-❌ time.sleep()
-
-❌ nth() just because it is convenient
-```
+* ❌ Hard-code `ORD-1001`
+* ❌ UI se order create karke phir UI se same order validate karna
+* ❌ Existing order assume karna
+* ❌ API response ignore karna
+* ❌ API setup aur UI validation ko unnecessarily mix karna
+* ❌ `time.sleep()`
+* ❌ `nth()` just because it is convenient
 
 ---
 
 # 💡 Engineering Thinking
 
-Implementation se pehle in questions par socho.
+Implementation se pehle socho:
 
 ### 1️⃣ Test Data
 
-> Test data API se create karne ka benefit kya hai?
+**Test data API se create karne ka benefit kya hai?**
 
 ---
 
 ### 2️⃣ Dynamic ID
 
-> `order_id` ko test ke different parts mein kaise pass karoge?
+**`order_id` ko test ke different parts mein kaise pass karoge?**
 
-Example:
+Expected thinking:
 
-```text
 API Response
-     ↓
- order_id
-     ↓
+↓
+`order_id`
+↓
 Fixture / Test
-     ↓
+↓
 Orders Page
-     ↓
+↓
 Find Order
-```
 
 ---
 
 ### 3️⃣ API Client
 
-> API client ki zarurat hai ya direct request sufficient hai?
+**API client ki zarurat hai ya direct request sufficient hai?**
 
-Socho:
+Compare:
 
-```python
-requests.post(...)
-```
+`requests.post(...)`
 
 vs.
 
-```python
-order_api.create_order(...)
-```
+`order_api.create_order(...)`
 
 Kaunsa abstraction **is exercise ke scale par justified** hai?
 
@@ -486,21 +355,13 @@ Kaunsa abstraction **is exercise ke scale par justified** hai?
 
 ### 4️⃣ POM
 
-> POM ka responsibility kya hoga?
+**POM ki responsibility kya hogi?**
 
-POM ko:
+POM ko API call karni chahiye?
 
-```text
-API call
-```
+Ya POM ko sirf:
 
-karni chahiye?
-
-Ya:
-
-```text
-UI interaction
-```
+> 🎭 **UI interaction**
 
 tak limited rehna chahiye?
 
@@ -510,15 +371,13 @@ tak limited rehna chahiye?
 
 API response validation aur UI validation mein kya difference hai?
 
-```text
-API Assertion
-      ↓
-Did backend create correct data?
+**API Assertion**
 
-UI Assertion
-      ↓
-Does user see correct data?
-```
+Backend ne correct data create kiya?
+
+**UI Assertion**
+
+User ko correct data visible ho raha hai?
 
 ---
 
@@ -526,13 +385,11 @@ Does user see correct data?
 
 Agar test parallel mein 5 times run ho:
 
-```text
-Test A → Order ?
-Test B → Order ?
-Test C → Order ?
-Test D → Order ?
-Test E → Order ?
-```
+* Test A → Order ?
+* Test B → Order ?
+* Test C → Order ?
+* Test D → Order ?
+* Test E → Order ?
 
 Toh orders clash kaise avoid karoge?
 
@@ -540,18 +397,11 @@ Toh orders clash kaise avoid karoge?
 
 ### 7️⃣ Cleanup
 
-Test fail hone par:
-
-```text
-API-created order
-```
-
-ka kya hoga?
+Test fail hone par API-created order ka kya hoga?
 
 ---
 
-> 🧠 **Ye questions answer karke submit karna mandatory nahi hai.**
->
+> 💡 **Ye questions answer karke submit karna mandatory nahi hai.**
 > Ye sirf implementation ke time tumhari engineering thinking guide karne ke liye hain.
 
 ---
@@ -560,29 +410,33 @@ ka kya hoga?
 
 Git project mein exercise ko apni preferred structure ke according implement karo.
 
-Submit:
+### Submit
 
-```text
-Exercise: #3
+**Exercise:** `#3`
 
-Project Structure:
-<folder/file structure>
+**Project Structure:**
 
-Files:
-<files changed>
+Project ka folder/file structure provide karo.
 
-Code:
-<complete relevant code>
+**Files:**
 
-Architecture:
-<POM / Fixture / API Client etc.>
+Changed files ki list provide karo.
 
-Reason:
-<short explanation>
+**Code:**
 
-Problems/Doubts:
-<anything you faced>
-```
+Complete relevant code provide karo.
+
+**Architecture:**
+
+POM / Fixture / API Client etc.
+
+**Reason:**
+
+Short explanation ki architecture kyun choose kiya.
+
+**Problems/Doubts:**
+
+Implementation ke during jo problems ya doubts aaye.
 
 ---
 
@@ -651,17 +505,7 @@ Real automation frameworks mein API ko test-data setup ke liye use karna aur UI 
 
 Typical flow:
 
-```text
-API
- ↓
-Prepare Test Data
- ↓
-UI
- ↓
-Perform User Action
- ↓
-UI Assertions
-```
+**API → Prepare Test Data → UI → Perform User Action → UI Assertions**
 
 Isse UI test ko unnecessary setup steps perform nahi karne padte.
 
@@ -699,49 +543,29 @@ Example:
 
 Main mentor ki tarah bataunga:
 
-```text
-🟢 Good approach
-🟡 Think about this
-🔴 Change this
-```
+🟢 **Good approach**
+🟡 **Think about this**
+🔴 **Change this**
 
-Lekin main bina zarurat tumhara **complete solution/code** nahi likhunga.
+Lekin bina zarurat tumhara **complete solution/code** nahi likhunga.
 
 ---
 
 # 🏁 Final Challenge
 
-Before submitting, make sure your test can conceptually achieve:
+Before submitting, make sure your test conceptually achieve karta hai:
 
-```text
-          ┌──────────────────┐
-          │   Create Order   │
-          │      via API     │
-          └────────┬─────────┘
-                   │
-                   ▼
-             order_id
-                   │
-                   ▼
-          ┌──────────────────┐
-          │    Login via UI  │
-          └────────┬─────────┘
-                   │
-                   ▼
-          ┌──────────────────┐
-          │   Open Orders    │
-          └────────┬─────────┘
-                   │
-                   ▼
-          ┌──────────────────┐
-          │ Find order_id    │
-          └────────┬─────────┘
-                   │
-                   ▼
-          ┌──────────────────┐
-          │ Validate Details │
-          └──────────────────┘
-```
+**Create Order via API**
+↓
+**Capture dynamic `order_id`**
+↓
+**Login via UI**
+↓
+**Open Orders**
+↓
+**Find `order_id`**
+↓
+**Validate Order Details**
 
 ---
 
@@ -754,6 +578,3 @@ Before submitting, make sure your test can conceptually achieve:
 🔥 **SDET mindset > Just making the test pass**
 
 </div>
-```
-
-**Aage se exactly isi style mein** exercise/notes ka Markdown text de dunga — tum bas **copy → `.md` file → paste** kar dena.
