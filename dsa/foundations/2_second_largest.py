@@ -24,4 +24,15 @@ print(second_largest(nums))  # 34
 # [7, 7, 7]          # [7] — sirf ek distinct value
 
 def top_two_distinct(nums):
-    pass
+    first = second = float('-inf')
+    for num in nums:
+        if num > first:
+            second = first
+            first = num 
+        elif first > num > second:
+            second = num 
+
+    if second == float('-inf'):
+        return [first]
+    else:
+        return [first , second]
