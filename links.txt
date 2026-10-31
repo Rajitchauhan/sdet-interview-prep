@@ -1,0 +1,9 @@
+
+Play all
+Test Automation University
+
+
+https://www.udemy.com/course/pytest-course-python/
+
+https://www.udemy.com/course/learn-playwright-with-python-web-api-automation
+

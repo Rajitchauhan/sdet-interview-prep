@@ -17,5 +17,28 @@ def first_unique_id(ids):
 ids = [41, 23, 41, 17, 23, 56, 17, 90]
 
 print(first_unique_id(ids))
-# def first_unique_id(ids):
-#     pass
+
+#second appraoch
+def first_unique_id(ids):
+    dt = {}
+
+    for id in ids:
+        dt[id] = dt.get(id , 0) + 1
+
+    for id in ids:
+        if dt[id] == 1:
+            return id
+    return None
+
+def first_unique_id(ids):
+    seen = set()
+    for id in ids:
+        if id not in seen:
+            seen.add(id)
+        else:
+            return id 
+    return None
+
+
+
+    
