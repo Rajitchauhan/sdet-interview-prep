@@ -1,0 +1,12 @@
+{
+  "name": "ShopDemo UI Report",
+  "output": "./allure-report",
+  "historyPath": "./history.jsonl",
+  "plugins": {
+    "awesome": {
+      "options": {
+        "groupBy": ["epic", "feature", "story"]
+      }
+    }
+  }
+}
