@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ShopDemo</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    .hidden { display: none; }
+    .error { color: #b00020; margin-top: 8px; }
+    .card { border: 1px solid #ccc; padding: 10px; margin: 8px 0; width: 320px; }
+    .badge { background: #e8590c; color: #fff; border-radius: 10px; padding: 2px 8px; }
+    nav { margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <h1>ShopDemo</h1>
+
+  <section id="login-view">
+    <h2>Login</h2>
+    <label>Username <input id="username" placeholder="Username"></label><br><br>
+    <label>Password <input id="password" type="password" placeholder="Password"></label><br><br>
+    <button id="login-btn">Login</button>
+    <div id="login-error" class="error" role="alert"></div>
+  </section>
+
+  <section id="inventory-view" class="hidden">
+    <nav>
+      <span>Cart: <span id="cart-count" class="badge" data-testid="cart-count">0</span></span>
+      <button id="open-cart">View Cart</button>
+      <button id="logout">Logout</button>
+    </nav>
+    <h2>Products</h2>
+    <label>Sort
+      <select id="sort" data-testid="sort">
+        <option value="az">Name (A to Z)</option>
+        <option value="za">Name (Z to A)</option>
+        <option value="lohi">Price (low to high)</option>
+        <option value="hilo">Price (high to low)</option>
+      </select>
+    </label>
+    <div id="products"></div>
+  </section>
+
+  <section id="cart-view" class="hidden">
+    <h2>Your Cart</h2>
+    <ul id="cart-items"></ul>
+    <button id="back">Continue Shopping</button>
+    <button id="checkout">Checkout</button>
+  </section>
+
+  <section id="done-view" class="hidden">
+    <h2 id="done-msg">Thank you for your order!</h2>
+  </section>
+
+<script>
+  const PRODUCTS = [
+    { id: "backpack", name: "Backpack", price: 29.99 },
+    { id: "bike-light", name: "Bike Light", price: 9.99 },
+    { id: "onesie", name: "Onesie", price: 7.99 },
+  ];
+  const BUG = new URLSearchParams(location.search).get("bug") === "1";
+  let cart = [];
+  let sortMode = "az";
+  const $ = (id) => document.getElementById(id);
+  const show = (view) => {
+    ["login", "inventory", "cart", "done"].forEach(v =>
+      $(v + "-view").classList.toggle("hidden", v !== view));
+    location.hash = view;
+  };
+  function renderProducts() {
+    const list = [...PRODUCTS];
+    if (sortMode === "az") list.sort((a, b) => a.name.localeCompare(b.name));
+    if (sortMode === "za") list.sort((a, b) => b.name.localeCompare(a.name));
+    if (sortMode === "lohi") list.sort((a, b) => a.price - b.price);
+    if (sortMode === "hilo") list.sort((a, b) => b.price - a.price);
+    $("products").innerHTML = list.map(p => `
+      <div class="card" data-testid="product">
+        <strong class="name">${p.name}</strong>
+        <span class="price">$${p.price.toFixed(2)}</span><br><br>
+        <button data-id="${p.id}">${cart.includes(p.id) ? "Remove" : "Add to cart"}</button>
+      </div>`).join("");
+    if (BUG && cart.length) console.error("BUG MODE: cart count is inflated");
+    $("cart-count").textContent = String(cart.length + (BUG && cart.length ? 1 : 0));
+  }
+  $("login-btn").onclick = () => {
+    const u = $("username").value, p = $("password").value;
+    console.log("login attempt for", u);
+    if (u === "locked_user") { $("login-error").textContent = "Sorry, this user has been locked out."; return; }
+    if (u === "standard_user" && p === "secret_sauce") { $("login-error").textContent = ""; show("inventory"); renderProducts(); fetch("api/products").catch(() => {}); return; }
+    $("login-error").textContent = "Username and password do not match";
+  };
+  $("products").onclick = (e) => {
+    const id = e.target.dataset && e.target.dataset.id;
+    if (!id) return;
+    cart = cart.includes(id) ? cart.filter(x => x !== id) : [...cart, id];
+    renderProducts();
+  };
+  $("sort").onchange = (e) => { sortMode = e.target.value; renderProducts(); };
+  $("open-cart").onclick = () => {
+    $("cart-items").innerHTML = cart.map(id => `<li>${PRODUCTS.find(p => p.id === id).name}</li>`).join("");
+    show("cart");
+  };
+  $("back").onclick = () => show("inventory");
+  $("checkout").onclick = () => { cart = []; show("done"); };
+  $("logout").onclick = () => { cart = []; show("login"); };
+  show("login");
+</script>
+</body>
+</html>
