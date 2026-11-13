@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Playground</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    table { border-collapse: collapse; margin-bottom: 24px; }
+    th, td { border: 1px solid #ccc; padding: 6px 10px; }
+    .modal { position: fixed; top: 80px; left: 80px; background: #fff; border: 2px solid #333; padding: 16px; }
+    .hidden { display: none; }
+    section { margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+  <h1>Playground</h1>
+
+  <section>
+    <h2>Orders</h2>
+    <table data-testid="orders">
+      <thead><tr><th>Order</th><th>Customer</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody id="orders-body"></tbody>
+    </table>
+  </section>
+
+  <div id="modal" role="dialog" aria-label="Order details" class="modal hidden">
+    <h3 id="modal-title"></h3>
+    <p id="modal-body"></p>
+    <button id="modal-close">Close</button>
+  </div>
+
+  <section>
+    <h2>Payment</h2>
+    <iframe title="Payment" width="320" height="120" srcdoc="
+      <label>Card number <input id='card' placeholder='Card number'></label>
+      <button onclick=&quot;document.getElementById('msg').textContent='Payment accepted'&quot;>Pay now</button>
+      <p id='msg'></p>"></iframe>
+  </section>
+
+  <section>
+    <h2>Rating</h2>
+    <rating-widget></rating-widget>
+  </section>
+
+  <section>
+    <h2>Help and account</h2>
+    <button id="open-help">Open help (new tab)</button>
+    <button id="delete-account">Delete account</button>
+    <p data-testid="account-status" id="account-status"></p>
+  </section>
+
+<script>
+  const ORDERS = [
+    { id: "1001", customer: "Asha", status: "Paid" },
+    { id: "1002", customer: "Ravi", status: "Pending" },
+    { id: "1003", customer: "Meera", status: "Pending" },
+    { id: "1004", customer: "Kabir", status: "Shipped" },
+  ];
+  function renderOrders() {
+    document.getElementById("orders-body").innerHTML = ORDERS.map(o => `
+      <tr data-testid="order-row">
+        <td data-testid="order-id">${o.id}</td>
+        <td data-testid="customer">${o.customer}</td>
+        <td data-testid="status">${o.status}</td>
+        <td>
+          <button data-details="${o.id}">Details</button>
+          ${o.status === "Pending" ? `<button data-cancel="${o.id}">Cancel</button>` : ""}
+        </td>
+      </tr>`).join("");
+  }
+  document.getElementById("orders-body").onclick = (e) => {
+    const d = e.target.dataset;
+    if (d.details) {
+      const o = ORDERS.find(x => x.id === d.details);
+      document.getElementById("modal-title").textContent = "Order #" + o.id;
+      document.getElementById("modal-body").textContent = o.customer + " | " + o.status;
+      document.getElementById("modal").classList.remove("hidden");
+    }
+    if (d.cancel) {
+      ORDERS.find(x => x.id === d.cancel).status = "Cancelled";
+      renderOrders();
+    }
+  };
+  document.getElementById("modal-close").onclick = () => document.getElementById("modal").classList.add("hidden");
+
+  class RatingWidget extends HTMLElement {
+    constructor() {
+      super();
+      const root = this.attachShadow({ mode: "open" });
+      root.innerHTML = `<span id="value">Rating: 0</span> ` +
+        [1,2,3,4,5].map(n => `<button aria-label="Rate ${n}" data-n="${n}">&#9733;${n}</button>`).join("");
+      root.addEventListener("click", (e) => {
+        const n = e.target.dataset && e.target.dataset.n;
+        if (n) root.getElementById("value").textContent = "Rating: " + n;
+      });
+    }
+  }
+  customElements.define("rating-widget", RatingWidget);
+
+  document.getElementById("open-help").onclick = () => window.open("/help.html", "_blank");
+  document.getElementById("delete-account").onclick = () => {
+    if (confirm("Are you sure?")) document.getElementById("account-status").textContent = "Account deleted";
+  };
+  renderOrders();
+</script>
+</body>
+</html>
