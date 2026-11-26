@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+<rect width="1400" height="900" fill="#e8f3f7"/>
+<style>text{font-family:Arial,sans-serif;fill:#243746}.title{font-size:30px;font-weight:bold}.subtitle{font-size:17px}.state{font-size:30px;font-weight:bold;fill:#334155}.small{font-size:15px}.label{font-size:19px;font-weight:bold}.border{fill:#f3e9d4;stroke:#4c6470;stroke-width:4}.internal{fill:none;stroke:#71838b;stroke-width:3;stroke-dasharray:10 8}.river{fill:none;stroke:#2585b8;stroke-width:8;stroke-linecap:round}.mountain{fill:#9b8872;stroke:#655746;stroke-width:2}.forest{fill:#789b78;stroke:#416847;stroke-width:2}.dot{fill:#fff;stroke:#293b45;stroke-width:3}</style>
+<text x="700" y="50" text-anchor="middle" class="title">EDITABLE GEOGRAPHY SAMPLE — NOT CANON</text><text x="700" y="80" text-anchor="middle" class="subtitle">Placeholder landforms, borders, resources and labels. Move, redraw or delete freely.</text>
+<!-- Main continent outline -->
+<path class="border" d="M100,210 L160,155 L260,130 L340,160 L430,110 L540,145 L620,115 L720,155 L820,130 L900,185 L950,240 L930,330 L990,390 L960,490 L920,550 L850,600 L790,670 L680,690 L600,660 L520,710 L420,670 L340,700 L260,640 L200,590 L150,500 L110,420 L80,330 Z"/>
+<!-- states conceptual partitions -->
+<path class="internal" d="M160,155 L250,340 L300,520 L260,640"/><path class="internal" d="M250,340 L430,360 L520,470 L520,710"/><path class="internal" d="M430,110 L430,360 L600,420 L680,690"/><path class="internal" d="M620,115 L600,420 L790,430 L850,600"/><path class="internal" d="M900,185 L790,430 L960,490"/>
+<text x="200" y="285" class="state">A</text><text x="370" y="520" class="state">B</text><text x="530" y="280" class="state">C</text><text x="720" y="320" class="state">D</text><text x="865" y="365" class="state">E</text>
+<!-- Mountain chain -->
+<g class="mountain"><path d="M170 205 l25 -40 25 40z"/><path d="M220 230 l30 -55 30 55z"/><path d="M280 210 l26 -45 27 45z"/><path d="M345 225 l30 -58 30 58z"/><path d="M405 200 l25 -45 27 45z"/><path d="M465 225 l30 -60 30 60z"/><path d="M525 205 l26 -48 27 48z"/><path d="M580 230 l30 -56 30 56z"/><path d="M640 210 l25 -45 25 45z"/></g>
+<text x="420" y="140" class="small">Mountain belt (sample)</text>
+<!-- rivers -->
+<path class="river" d="M450 230 C430 300 470 340 500 390 S520 480 580 510 S650 560 710 590 S780 620 840 590"/><path class="river" d="M300 250 C310 340 280 390 330 450 S370 550 420 600"/><path class="river" d="M700 250 C750 310 730 350 800 390 S860 450 900 490"/>
+<text x="550" y="480" class="small" fill="#2585b8">River system (sample)</text>
+<!-- forests -->
+<g class="forest"><circle cx="220" cy="480" r="16"/><circle cx="250" cy="500" r="16"/><circle cx="270" cy="470" r="16"/><circle cx="300" cy="500" r="16"/><circle cx="240" cy="530" r="16"/><circle cx="820" cy="530" r="16"/><circle cx="850" cy="540" r="16"/><circle cx="880" cy="520" r="16"/></g><text x="190" y="565" class="small">Forest zone</text>
+<!-- placeholders resource markers -->
+<circle class="dot" cx="350" cy="240" r="11"/><text x="365" y="250" class="small">Metal marker ··</text><circle class="dot" cx="610" cy="360" r="11"/><text x="625" y="370" class="small">Crystal marker ··</text><circle class="dot" cx="750" cy="550" r="11"/><text x="765" y="560" class="small">Resource marker ··</text>
+<!-- second continent -->
+<path class="border" d="M1080,220 L1150,160 L1230,175 L1290,235 L1320,320 L1300,410 L1240,470 L1160,480 L1100,430 L1050,340 Z"/><path class="internal" d="M1160 480 L1180 300 L1150 160"/><text x="1130" y="330" class="state">F</text><text x="1240" y="340" class="state">G</text><g class="mountain"><path d="M1120 260 l22 -40 22 40z"/><path d="M1160 250 l28 -50 28 50z"/><path d="M1205 270 l24 -44 24 44z"/></g><path class="river" d="M1200 270 C1180 320 1200 370 1160 420"/><text x="1100" y="520" class="small">Second continent (sample)</text>
+<!-- legend panel -->
+<rect x="80" y="745" width="1240" height="120" rx="16" fill="#fff" stroke="#758a94" stroke-width="2"/><text x="110" y="785" class="label">LEGEND</text><path d="M230 780 l18 -30 18 30z" class="mountain"/><text x="280" y="785" class="small">Mountains</text><path class="river" d="M430 780 h70"/><text x="510" y="785" class="small">River</text><circle cx="640" cy="780" r="13" class="forest"/><text x="665" y="785" class="small">Forest</text><circle cx="800" cy="780" r="11" class="dot"/><text x="825" y="785" class="small">Resource / crystal location placeholder</text><path class="internal" d="M1100 780 h70"/><text x="1180" y="785" class="small">State boundary</text><text x="110" y="830" class="small">A–E: proposed main-continent state placeholders  |  F–G: proposed second-continent placeholders  |  Nothing on this map is finalized.</text>
+</svg>
