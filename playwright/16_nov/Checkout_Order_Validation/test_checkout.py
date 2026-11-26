@@ -45,7 +45,7 @@ def test_checkout_navigate(auth_page):
 
 # Checkout Overview page open ho.
 # Backpack visible ho.
-# Price $29.99 ho.
+# Price   $29.99 ho.
     
 
 def test_checkout(auth_page):
@@ -62,7 +62,7 @@ def test_checkout(auth_page):
    
     #First Name, Last Name aur Zip/Postal Code fields visible hon.
     form_group = auth_page.locator(".form_group")
-    
+        
     form_group.get_by_placeholder("First Name").fill("Rajit")
     form_group.get_by_placeholder("last name").fill("Chauhan")
     form_group.get_by_placeholder("Zip/Postal Code").fill("282001")
